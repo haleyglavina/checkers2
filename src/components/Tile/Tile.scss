@@ -1,0 +1,19 @@
+.tile {
+  height: 92px;
+  width: 92px;
+  border: 8px solid;
+}
+
+.tile--light {
+  background-color: white;
+  border: 8px solid white;
+}
+
+.tile--dark {
+  background-color: black;
+  border: 8px solid black;
+}
+
+.tile--focus {
+  border: 8px solid #ffa8b7;
+}
