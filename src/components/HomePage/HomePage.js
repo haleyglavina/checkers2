@@ -1,5 +1,5 @@
 import React from 'react';
-import './HomePage.css';
+import './HomePage.scss';
 import Board from '../Board/Board';
 
 function HomePage(props) {

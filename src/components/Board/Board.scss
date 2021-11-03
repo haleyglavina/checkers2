@@ -1,0 +1,9 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+@import '../../partials/typography';
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 650px;
+}

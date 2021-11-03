@@ -3,15 +3,11 @@ import './Tile.scss';
 
 function Tile({color, coord, isFocusTile, setFocusTile}) {
 
-  // const [isFocused, setIsFocused] = useState(isFocusTile(coord));
-
   const toggleFocus = () => {
     console.log("tile clicked:", coord[0], coord[1]);
     console.log("is this a focus tile?", isFocusTile(coord));
 
-    let i, j = coord
-    
-    if (((i % 2 == 0) && (j % 2 == 0)) | ((i % 2 == 1) && (j % 2 == 1))) {
+    if (!color) {
       setFocusTile(null);
       return;
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Board.css';
+import './Board.scss';
 import Tile from '../Tile/Tile';
 import { Component } from 'react';
 
