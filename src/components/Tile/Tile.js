@@ -9,7 +9,8 @@ function Tile({color, coord, isFocusTile, setFocusTile, hasChecker}) {
 
   const toggleFocus = () => {
     console.log("tile clicked:", coord[0], coord[1]);
-    console.log("is this a focus tile?", isFocusTile(coord));
+    // console.log("is this a focus tile?", isFocusTile(coord));
+    console.log("hasChecker is: ", hasChecker);
 
     if (color) {
       setFocusTile(null);
@@ -24,7 +25,7 @@ function Tile({color, coord, isFocusTile, setFocusTile, hasChecker}) {
                     ${color ? 'tile--light' : 'tile--dark'} 
                     ${isFocusTile(coord) ? 'tile--focus' : ''}`}
         onClick={toggleFocus}>
-      <p>{hasChecker}</p>
+      {hasChecker ? <img className="tile__checker" src={hasChecker == 'chrome' ? chromeLogo : ieLogo}></img> : ''}
     </div>
   );
 }

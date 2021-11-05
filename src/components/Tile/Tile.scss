@@ -6,6 +6,9 @@
   height: 92px;
   width: 92px;
   border: 8px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &--light {
     background-color: white;
@@ -19,5 +22,9 @@
 
   &--focus {
     border: 8px solid #ffa8b7;
+  }
+
+  &__checker {
+    height: 80%;
   }
 }
