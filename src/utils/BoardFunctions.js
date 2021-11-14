@@ -41,8 +41,19 @@ export const getColor = (coord) => {
 
 // Moves a checker from oldCoord to newCoord, returns updated tiles array
 export const moveChecker = (tiles, oldCoord, newCoord, boardSize) => {
-  tiles[(newCoord[0] * boardSize) + newCoord[1]] = tiles[(oldCoord[0] * boardSize) + oldCoord[1]];
-  tiles[(oldCoord[0] * boardSize) + oldCoord[1]] = {i: oldCoord[0], j: oldCoord[1], hasChecker: null};
+  console.log("tiles before: ", tiles);
+  tiles[(newCoord[0] * boardSize) + newCoord[1]] = {
+    i: newCoord[0], 
+    j: newCoord[1], 
+    hasChecker: tiles[(oldCoord[0] * boardSize) + oldCoord[1]].hasChecker
+  };
 
+  tiles[(oldCoord[0] * boardSize) + oldCoord[1]] = {
+    i: oldCoord[0], 
+    j: oldCoord[1], 
+    hasChecker: null
+  };
+  
+  console.log("tiles after: ", tiles);
   return tiles;
 }
