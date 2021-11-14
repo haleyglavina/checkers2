@@ -20,12 +20,27 @@ function Tile({color, coord, isFocusTile, setFocusTile, hasChecker}) {
     isFocusTile(coord) ? setFocusTile(null) : setFocusTile(coord);
   }
 
+  const startTileChosen = (e) => {
+    // If event target is a checker piece rather than a tile, dont do anything
+    // if (e.target.className === 'tile__checker')
+      // e.stopPropagation();
+    
+    console.log("start on:", e.target);
+  }
+
+  const endTileChosen = (e) => {
+    console.log("end on:", e.target);
+  }
+
   return (
     <div className={`tile 
                     ${color ? 'tile--light' : 'tile--dark'} 
                     ${isFocusTile(coord) ? 'tile--focus' : ''}`}
-        onClick={toggleFocus}>
-      {hasChecker ? <img className="tile__checker" src={hasChecker == 'chrome' ? chromeLogo : ieLogo}></img> : ''}
+        onClick={toggleFocus}
+        onMouseDown = {startTileChosen}
+        onMouseUp = {endTileChosen}
+    >
+      {hasChecker ? <img className="tile__checker" src={hasChecker == 1 ? chromeLogo : ieLogo}></img> : ''}
     </div>
   );
 }

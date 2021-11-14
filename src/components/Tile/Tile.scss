@@ -3,8 +3,8 @@
 @import '../../partials/typography';
 
 .tile {
-  height: 92px;
-  width: 92px;
+  height: 12.5%;
+  width: 12.5%;
   border: 8px solid;
   display: flex;
   justify-content: center;
@@ -18,10 +18,18 @@
   &--dark {
     background-color: black;
     border: 8px solid black;
+
+    &:hover {
+      border: 8px solid #ffa8b770;
+    }
   }
 
   &--focus {
     border: 8px solid #ffa8b7;
+
+    &:hover {
+      border: 8px solid #ffa8b7;
+    }
   }
 
   &__checker {
