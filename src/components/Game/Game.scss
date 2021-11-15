@@ -1,0 +1,25 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+@import '../../partials/typography';
+
+.game {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.score {
+
+  &__player {
+    display: flex;
+  }
+
+  &__logo {
+    height: 50px;
+    width: 50px;
+  }
+
+  &__name {
+    margin: 0;
+  }
+}
