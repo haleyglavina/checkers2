@@ -9,9 +9,9 @@ function Game(props) {
   const [score1, setScore1] = useState(0);
   const [score2, setScore2] = useState(0);
 
-  const updateScore = (newScore1, newScore2) => {
-    setScore1(score1 + newScore1);
-    setScore2(score2 + newScore2);
+  const updateScore = (newScore) => {
+    setScore1(score1 + newScore[0]);
+    setScore2(score2 + newScore[1]);
   }
 
   return (

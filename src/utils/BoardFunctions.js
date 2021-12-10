@@ -20,7 +20,7 @@ export const resetBoard = (boardSize) => {
         tile.push({i, j, hasChecker: 1, king: false});
       
       else if (i >= (boardSize - (boardSize / 3) - 1) && !getColor([i, j])) 
-        tile.push({i, j, hasChecker: 2, king: false});
+        tile.push({i, j, hasChecker: -1, king: false});
       
       else 
         tile.push({i, j, hasChecker: null, king: false});
@@ -81,10 +81,12 @@ const isMoveValid = (tiles, oldCoord, newCoord, boardSize) => {
 const isBigMoveValid = (tiles, oldCoord, newCoord, boardSize) => {
 
   let fwdDirection = tiles[(oldCoord[0] * boardSize) + oldCoord[1]].hasChecker;
-  let iChangeValid = fwdDirection === 1 ? (newCoord[0] === (oldCoord[0] + 2)) : (newCoord[0] === (oldCoord[0] - 2));
+  let iDirection = newCoord[0] > oldCoord[0] ? 1 : -1;
+  let jDirection = newCoord[1] > oldCoord[1] ? 1 : -1;
+  let iChangeValid = newCoord[0] === (oldCoord[0] + 2*fwdDirection);
   let jChangeValid = ((newCoord[1] === (oldCoord[1] + 2)) || (newCoord[1] === (oldCoord[1] - 2)));
-  let opponentCoord = [Math.abs((oldCoord[0] - newCoord[0])), Math.abs((oldCoord[1] - newCoord[1]))];
-  let capturesOpponent = fwdDirection === 1 ? (tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]].hasChecker === 2) : (tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]].hasChecker === 1);
+  let opponentCoord = [oldCoord[0] + fwdDirection, oldCoord[1] + jDirection];
+  let capturesOpponent = fwdDirection === 1 ? (tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]].hasChecker === -1) : (tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]].hasChecker === 1);
 
   console.log("opponent coord: ", opponentCoord)
 
@@ -100,8 +102,6 @@ const isBigMoveValid = (tiles, oldCoord, newCoord, boardSize) => {
   else {
     iChangeValid = ((newCoord[0] === (oldCoord[0] + 2)) || (newCoord[0] === (oldCoord[0] - 2)));
 
-    console.log("")
-
     if (!(iChangeValid & jChangeValid & capturesOpponent))
       return false;
   }
@@ -112,20 +112,27 @@ const isBigMoveValid = (tiles, oldCoord, newCoord, boardSize) => {
 
 // Removes an opponent's checker from the board
 const moveCapturesOpponent = (tiles, oldCoord, newCoord, boardSize, updateScore) => {
-  let opponentCoord = [Math.abs((oldCoord[0] - newCoord[0])), Math.abs((oldCoord[1] - newCoord[1]))];
 
-  console.log("opponent coord we're removing:", opponentCoord);
+  let fwdDirection = tiles[(oldCoord[0] * boardSize) + oldCoord[1]].hasChecker;
+  let jDirection = newCoord[1] > oldCoord[1] ? 1 : -1;
+  let opponentCoord = [oldCoord[0] + fwdDirection, oldCoord[1] + jDirection];
+
+  console.log("tiles before delete opponent:", tiles)
   // remove opponent
-  tiles[opponentCoord] = {
-    i: oldCoord[0], 
-    j: oldCoord[1], 
+  tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]] = {
+    i: opponentCoord[0], 
+    j: opponentCoord[1], 
     hasChecker: null,
     king: false
   };
 
+  console.log("tiles after delete opponent:", tiles)
+
   // increment point
   let currentPlayer = tiles[(oldCoord[0] * boardSize) + oldCoord[1]].hasChecker;
   updateScore(currentPlayer === 1 ? [1, 0] : [0, 1])
+
+  return tiles;
 
 }
 
@@ -135,7 +142,7 @@ export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) =
   if (isMoveValid(tiles, oldCoord, newCoord, boardSize)) {
     console.log("valid small move");
   } else if (isBigMoveValid(tiles, oldCoord, newCoord, boardSize)) {
-    moveCapturesOpponent(tiles, oldCoord, newCoord, boardSize, updateScore);
+    tiles = moveCapturesOpponent(tiles, oldCoord, newCoord, boardSize, updateScore);
     console.log("valid big move");
   } else {
     console.log("invalid move");
