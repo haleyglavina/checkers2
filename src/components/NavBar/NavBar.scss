@@ -36,6 +36,7 @@
 
   &__dial {
     background-color:  white;
+    box-shadow: 2px 1px 10px darkgrey;
     height: 1.3rem;
     width: 1.3rem;
     border-radius:  1rem;
@@ -46,6 +47,7 @@
 
     &--on {
       left: 24px;
+      box-shadow: inset 2px 1px 10px darkgrey;
     }
   }
 }

@@ -4,12 +4,12 @@ import ThemeContext from '../../utils/ThemeContext';
 
 function NavBar(props) {
 
-  let theme = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const [toggleOn, setToggleOn] = useState(theme == 'dark'); // false
 
   const switchToggle = () => { 
     setToggleOn(!toggleOn);
-    
+    setTheme( (theme == 'light') ? 'dark' : 'light')
   }
 
   return (
