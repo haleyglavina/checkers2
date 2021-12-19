@@ -1,0 +1,51 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+@import '../../partials/typography';
+
+.navbar {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+
+  &__title {
+    margin: 0;
+  }
+}
+
+.toggle {
+  height: 1.5rem;
+  width: 2.7rem;
+  border-radius:  1.5rem;
+  border: 2px solid white;
+  background-color: darkgrey;
+  display: flex;
+  align-items: center;
+  box-sizing: content-box;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--on {
+    background-color: $bg-dark;
+  }
+
+
+  &__dial {
+    background-color:  white;
+    height: 1.3rem;
+    width: 1.3rem;
+    border-radius:  1rem;
+    margin: 0 0.1rem;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+
+    &--on {
+      left: 24px;
+    }
+  }
+}

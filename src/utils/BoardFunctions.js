@@ -117,7 +117,6 @@ const moveCapturesOpponent = (tiles, oldCoord, newCoord, boardSize, updateScore)
   let jDirection = newCoord[1] > oldCoord[1] ? 1 : -1;
   let opponentCoord = [oldCoord[0] + fwdDirection, oldCoord[1] + jDirection];
 
-  console.log("tiles before delete opponent:", tiles)
   // remove opponent
   tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]] = {
     i: opponentCoord[0], 
@@ -126,14 +125,11 @@ const moveCapturesOpponent = (tiles, oldCoord, newCoord, boardSize, updateScore)
     king: false
   };
 
-  console.log("tiles after delete opponent:", tiles)
-
   // increment point
   let currentPlayer = tiles[(oldCoord[0] * boardSize) + oldCoord[1]].hasChecker;
   updateScore(currentPlayer === 1 ? [1, 0] : [0, 1])
 
   return tiles;
-
 }
 
 // Moves a checker from oldCoord to newCoord, returns updated tiles array
@@ -163,6 +159,5 @@ export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) =
     king: false
   };
 
-  // console.log("tiles after: ", tiles);
   return tiles;
 }

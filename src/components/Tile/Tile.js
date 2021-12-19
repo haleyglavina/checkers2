@@ -8,14 +8,6 @@ function Tile({color, coord, isFocusTile, setFocusTile, hasChecker, tileClicked}
   // const [hasChecker, setHasChecker] = useState(hasChecker);
 
   const toggleFocus = () => {
-
-
-    // if non-playing tile was clicked, remove focus
-    // if (color) {
-    //   setFocusTile(null);
-    //   return;
-    // }
-
     tileClicked(coord);
     // isFocusTile(coord) ? setFocusTile(null) : setFocusTile(coord);
   }
