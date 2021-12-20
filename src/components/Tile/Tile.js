@@ -5,11 +5,8 @@ import chromeLogo from '../../assets/chromeLogo.png';
 
 function Tile({color, coord, isFocusTile, setFocusTile, hasChecker, tileClicked}) {
 
-  // const [hasChecker, setHasChecker] = useState(hasChecker);
-
   const toggleFocus = () => {
     tileClicked(coord);
-    // isFocusTile(coord) ? setFocusTile(null) : setFocusTile(coord);
   }
 
   return (

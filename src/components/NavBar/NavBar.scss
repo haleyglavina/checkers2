@@ -18,12 +18,12 @@
   width: 2.7rem;
   border-radius:  1.5rem;
   border: 2px solid white;
-  background-color: darkgrey;
   display: flex;
   align-items: center;
   box-sizing: content-box;
   position: relative;
   transition: all 0.3s ease-in-out;
+  box-shadow: inset 2px 1px 10px darkgrey;
 
   &:hover {
     cursor: pointer;
@@ -31,8 +31,21 @@
 
   &--on {
     background-color: $bg-dark;
+    box-shadow: inset 2px 1px 10px black;
   }
 
+  &__symbol {
+    position: absolute;
+    font-size: 1rem;
+
+    &--dark {
+      left: 3px;
+    }
+
+    &--light {
+      right: 3px;
+    }
+  }
 
   &__dial {
     background-color:  white;

@@ -12,25 +12,17 @@ const MainContent = styled.main`
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  transition: all 0.3s ease-in-out;
 
-  ${(props) => {
-    if (props.theme == 'light') {
-      return `
-        background-color: #eeeeee;
-        color: black;
-      `
-    } else {
-      return `
-        background-color: #282c34;
-        color: white;
-      `
-    }
-  }}
+  background-color: ${(props) => props.theme === 'light' ? '#eeeeee' : '#282c34'};
+  color: ${(props) => props.theme === 'light' ? 'black' : 'white'};
+
+ 
 `;
 
 function HomePage(props) {
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const value = { theme, setTheme };
 
   return (
