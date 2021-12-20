@@ -1,19 +1,17 @@
-@import '../../partials/variables';
-@import '../../partials/mixins';
-@import '../../partials/typography';
+import styled from "styled-components";
 
-.navbar {
+export const Nav = styled.nav`
+  background-image: linear-gradient(180deg, rgba(170,170,170,0.4), rgba(0,0,0,0));
   width: 100vw;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 2rem;
 
-  &__title {
+  .title {
     margin: 0;
   }
-}
 
-.toggle {
+  .toggle {
   height: 1.5rem;
   width: 2.7rem;
   border-radius:  1.5rem;
@@ -64,3 +62,4 @@
     }
   }
 }
+`;
