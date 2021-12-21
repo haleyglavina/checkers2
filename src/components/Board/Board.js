@@ -24,11 +24,6 @@ function Board(props) {
     
   }, [])
 
-  useEffect(() => {
-    // console.log("updated Board");
-    // console.log('board width: ', boardWidth);
-  })
-
   // Check if a tile is currently focused
   const isFocusTile = (coord) => {
     if (!focusTile) 

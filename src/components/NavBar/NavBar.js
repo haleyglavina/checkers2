@@ -13,7 +13,7 @@ function NavBar(props) {
   }
 
   return (
-    <Nav className="navbar" theme={theme}>
+    <Nav className="navbar">
       <p className="title">Battle of da Browsers 🔥</p>
       <div className={`toggle ${toggleOn ? 'toggle--on' : ''}`} onClick={switchToggle}>
         <p className="toggle__symbol toggle__symbol--dark">🌜</p>
