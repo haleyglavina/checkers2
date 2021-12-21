@@ -15,8 +15,6 @@ const MainContent = styled.main`
 
   background-color: ${(props) => props.theme === 'light' ? '#eeeeee' : '#282c34'};
   color: ${(props) => props.theme === 'light' ? 'black' : 'white'};
-
- 
 `;
 
 function HomePage(props) {

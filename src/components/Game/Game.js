@@ -14,17 +14,21 @@ function Game(props) {
     setScore2(score2 + newScore[1]);
   }
 
+  useEffect(() => {
+
+  }, []);
+
   return (
     <div className="game">
         <Board updateScore={updateScore} />
         <div className="score">
           <div className="score__player">
 
-            <img className="score__logo" src={chromeLogo}></img>
+            <img className="score__logo" src={chromeLogo} alt="Player 1 logo"></img>
             <h2 className="score__name">{`Player 1: ${score1}`}</h2>
           </div>
           <div className="score__player">
-            <img className="score__logo" src={ieLogo}></img>
+            <img className="score__logo" src={ieLogo} alt="Player 2 logo"></img>
             <h2 className="score__name">{`Player 2: ${score2}`}</h2>
           </div>
         </div>

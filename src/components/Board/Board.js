@@ -11,16 +11,16 @@ function Board(props) {
 
   const [focusTile, setFocusTile] = useState(null);
   const [tiles, setTiles] = useState([]);
-  const [boardWidth, setBoardWidth] = useState(0);
+  // const [boardWidth, setBoardWidth] = useState(0);
 
   useEffect(() => {
     setTiles(resetBoard(boardSize));
 
     // Determine size of the board
-    if (window.innerWidth < window.innerHeight)
-      setBoardWidth(window.innerWidth * 0.7);
-    else
-      setBoardWidth(window.innerHeight * 0.7);
+    // if (window.innerWidth < window.innerHeight)
+    //   setBoardWidth(window.innerWidth * 0.7);
+    // else
+    //   setBoardWidth(window.innerHeight * 0.7);
     
   }, [])
 
@@ -61,8 +61,8 @@ function Board(props) {
                 coord = {[tile.i, tile.j]}
                 color = {getColor([tile.i, tile.j])}
                 hasChecker = {tile.hasChecker}
+                isKing = {tile.king}
                 isFocusTile = {isFocusTile}
-                setFocusTile = {setFocusTile}
                 tileClicked = {tileClicked}
                /> 
       })}

@@ -2,22 +2,23 @@ import React, { useEffect, useState } from 'react';
 import './Tile.scss';
 import ieLogo from '../../assets/ieLogo.png';
 import chromeLogo from '../../assets/chromeLogo.png';
+import crown from '../../assets/crown.svg';
+import { TileContainer, CheckerPiece } from './styles';
 
-function Tile({color, coord, isFocusTile, setFocusTile, hasChecker, tileClicked}) {
+function Tile({color, coord, isFocusTile, hasChecker, tileClicked, isKing}) {
 
   const toggleFocus = () => {
     tileClicked(coord);
   }
 
   return (
-    <div className={`tile 
-                    ${color ? 'tile--light' : 'tile--dark'} 
-                    ${isFocusTile(coord) ? 'tile--focus' : ''}`}
+    <TileContainer color={color} isFocusTile={isFocusTile(coord)}
         onClick={toggleFocus}
     >
-      <p className="tile__label">{`${coord[0]}, ${coord[1]}`}</p> 
-      {hasChecker ? <img className="tile__checker" src={hasChecker == 1 ? chromeLogo : ieLogo}></img> : ''}
-    </div>
+      <p className="label">{`${coord[0]}, ${coord[1]}`}</p> 
+      {(hasChecker & isKing) ? <img className="crown" src={crown} /> : ''}
+      {hasChecker ? <CheckerPiece src={hasChecker == 1 ? chromeLogo : ieLogo} /> : ''}
+    </TileContainer>
   );
 }
 

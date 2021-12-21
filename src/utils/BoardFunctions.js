@@ -163,7 +163,6 @@ const moveCapturesOpponent = (tiles, oldCoord, newCoord, boardSize, updateScore)
     king: false
   };
 
-
   // increment point
   let currentPlayer = tiles[(oldCoord[0] * boardSize) + oldCoord[1]].hasChecker;
   updateScore(currentPlayer === 1 ? [1, 0] : [0, 1])
@@ -171,7 +170,9 @@ const moveCapturesOpponent = (tiles, oldCoord, newCoord, boardSize, updateScore)
   return tiles;
 }
 
+/*
 // Moves a checker from oldCoord to newCoord, returns updated tiles array
+*/
 export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) => {
 
   if (isMoveValid(tiles, oldCoord, newCoord, boardSize)) {
@@ -183,8 +184,6 @@ export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) =
     console.log("invalid move");
     return tiles;
   }
-
-  console.log("isKingNow:", isKing(tiles, oldCoord, newCoord, boardSize))
 
   tiles[(newCoord[0] * boardSize) + newCoord[1]] = {
     i: newCoord[0], 
@@ -200,10 +199,13 @@ export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) =
     king: false
   };
 
-  console.log("tiles being returned:", tiles);
+  console.log("returned tiles:", tiles);
   return tiles;
 }
+
+/*
 // Returns true if a piece is already a king or should become one
+*/
 const isKing = (tiles, oldCoord, newCoord, boardSize) => {
   let oldTile = tiles[(oldCoord[0] * boardSize) + oldCoord[1]];
 
@@ -212,8 +214,8 @@ const isKing = (tiles, oldCoord, newCoord, boardSize) => {
     return true;
 
   // conditions to become a king:
-  // if hasChecker is 1 (Chrome piece) and its new position is i=boardSize
-  if ((oldTile.hasChecker === 1) & (newCoord[0] === boardSize))
+  // if hasChecker is 1 (Chrome piece) and its new position is i=boardSize-1
+  if ((oldTile.hasChecker === 1) & (newCoord[0] === (boardSize - 1)))
     return true;
   // if hasChecker is -1 (IE piece) and its new position is i=0
   if ((oldTile.hasChecker === -1) & (newCoord[0] === 0))
