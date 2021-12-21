@@ -7,10 +7,11 @@ import { resetBoard, getColor, moveChecker } from '../../utils/BoardFunctions';
 // Number of tiles per row/column
 let boardSize = 8;
 
-function Board(props) {
+function Board({updateScore, game, score}) {
 
   const [focusTile, setFocusTile] = useState(null);
   const [tiles, setTiles] = useState([]);
+  const maxPoints = 12; // Change this to a function of boardSize !
   // const [boardWidth, setBoardWidth] = useState(0);
 
   useEffect(() => {
@@ -34,20 +35,46 @@ function Board(props) {
   }
 
   const tileClicked = (coord) => {
-    // if no tile is focused yet and this tile contains a checker, focus this tile
-    if (!focusTile && tiles[(coord[0] * boardSize) + coord[1]].hasChecker) {
+    // if no tile is focused yet 
+    // and this tile contains a checker
+    // and its this player's turn, focus this tile
+    let tile = tiles[(coord[0] * boardSize) + coord[1]];
+
+    if (!focusTile 
+        && tile.hasChecker
+        && (((game.gameState === 'p1Turn') && (tile.hasChecker === 1)) 
+            || ((game.gameState === 'p2Turn') && (tile.hasChecker === -1)))) {
       setFocusTile(coord);
     }
       
     // if no tile is focused yet and this tile doesn't contain checker, do nothing
-    else if (!focusTile && !tiles[(coord[0] * boardSize) + coord[1]].hasChecker) {
+    else if (!focusTile && !tiles.hasChecker) {
       return;
     }
 
     // if focus tile already exists, move checker from focus tile to this coord
     else {
-      setTiles(moveChecker(tiles, focusTile, coord, boardSize, props.updateScore));
+      const {isValidMove, newTiles} = moveChecker(tiles, focusTile, coord, boardSize, updateScore);
+      console.log("isvalidmove, newtile", isValidMove, newTiles)
+      
       setFocusTile(null);
+
+      // If the move was valid, determine if player just won or switch the turn
+      if (isValidMove) {
+        setTiles(newTiles);
+        let newGameState = game.gameState;
+        if (game.gameState === 'p1Turn') {
+          if (score[0] >= maxPoints)
+            newGameState = 'p1Won';
+          newGameState = 'p2Turn';
+        } else {
+          if (score[1] >= maxPoints)
+            newGameState = 'p2Won';
+          newGameState = 'p1Turn';
+        }
+        console.log("changing game state to:", newGameState);
+        game.setGameState(newGameState);
+      }
     }
   }
 

@@ -182,7 +182,7 @@ export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) =
     console.log("valid big move");
   } else {
     console.log("invalid move");
-    return tiles;
+    return {isValidMove: false, tiles};
   }
 
   tiles[(newCoord[0] * boardSize) + newCoord[1]] = {
@@ -200,7 +200,7 @@ export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) =
   };
 
   console.log("returned tiles:", tiles);
-  return tiles;
+  return {isValidMove: true, newTiles: tiles};
 }
 
 /*
