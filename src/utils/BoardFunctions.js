@@ -19,7 +19,7 @@ export const resetBoard = (boardSize) => {
   let tile = []
   for (let i = 0; i < boardSize; i++) {
     for (let j = 0; j < boardSize; j++) {
-      // [x, y, hasChecker]
+      // [x, y, hasChecker, king]
       if (i <= (boardSize / 3) && !getColor([i, j]))
         tile.push({i, j, hasChecker: 1, king: false});
       

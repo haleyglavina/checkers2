@@ -3,6 +3,7 @@ import './Game.scss';
 import Board from '../Board/Board';
 import ieLogo from '../../assets/ieLogo.png';
 import chromeLogo from '../../assets/chromeLogo.png';
+import { GameContainer, Score } from './styles';
 
 function Game(props) {
 
@@ -10,7 +11,8 @@ function Game(props) {
   const [score2, setScore2] = useState(0);
   // change score to 1 state of [#, #]
   const [gameState, setGameState] = useState('p1Turn'); // gameState is either p1Turn, p2Turn, p1Won, p2Won
-  // const [sameScreen, setSameScreen] = useState(true); // are players playing on same screen?
+  const [sameScreen, setSameScreen] = useState(true); // are players playing on same screen?
+  const [playerView, setPlayerView] = useState(-1); // which player's view should screen display if they're playing on different screens?
 
   const gameStateMsg = {
     'p1Turn': "It's player 1's turn",
@@ -31,21 +33,27 @@ function Game(props) {
   }, []);
 
   return (
-    <div className="game">
-        <Board updateScore={updateScore} game={game} score={[score1, score2]}/>
-        <div className="score">
-          <div className="score__player">
-            <img className="score__logo" src={chromeLogo} alt="Player 1 logo"></img>
-            <h2 className="score__name">{`Player 1: ${score1}`}</h2>
+    <GameContainer className="game">
+        <Board 
+          updateScore={updateScore} 
+          game={game} 
+          score={[score1, score2]}
+          sameScreen={sameScreen}
+          playerView={playerView}/>
+        <Score>
+          <div className="player">
+            <img className="logo" src={chromeLogo} alt="Player 1 logo"></img>
+            <h2 className="name">{`Player 1: ${score1}`}</h2>
+            
           </div>
-          <div className="score__player">
-            <img className="score__logo" src={ieLogo} alt="Player 2 logo"></img>
-            <h2 className="score__name">{`Player 2: ${score2}`}</h2>
+          <div className="player">
+            <img className="logo" src={ieLogo} alt="Player 2 logo"></img>
+            <h2 className="name">{`Player 2: ${score2}`}</h2>
           </div>
 
           <p>{gameStateMsg[gameState]}</p>
-        </div>
-      </div>
+        </Score>
+      </GameContainer>
   );
 }
 

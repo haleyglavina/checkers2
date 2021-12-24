@@ -7,7 +7,7 @@ import { resetBoard, getColor, moveChecker } from '../../utils/BoardFunctions';
 // Number of tiles per row/column
 let boardSize = 8;
 
-function Board({updateScore, game, score}) {
+function Board({updateScore, game, score, sameScreen, playerView}) {
 
   const [focusTile, setFocusTile] = useState(null);
   const [tiles, setTiles] = useState([]);
@@ -16,13 +16,6 @@ function Board({updateScore, game, score}) {
 
   useEffect(() => {
     setTiles(resetBoard(boardSize));
-
-    // Determine size of the board
-    // if (window.innerWidth < window.innerHeight)
-    //   setBoardWidth(window.innerWidth * 0.7);
-    // else
-    //   setBoardWidth(window.innerHeight * 0.7);
-    
   }, [])
 
   // Check if a tile is currently focused
@@ -77,7 +70,7 @@ function Board({updateScore, game, score}) {
   }
 
   return (
-    <GameBoard boardSize={boardSize}>
+    <GameBoard boardSize={boardSize} playerView={sameScreen ? 1 : playerView}>
       {tiles.map((tile, i) => {
         return <Tile 
                 key={i}
@@ -87,6 +80,7 @@ function Board({updateScore, game, score}) {
                 isKing = {tile.king}
                 isFocusTile = {isFocusTile}
                 tileClicked = {tileClicked}
+                boardSize = {boardSize}
                /> 
       })}
     </GameBoard>

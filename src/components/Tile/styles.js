@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const TileContainer = styled.div`
 
-  height: 12.5%;
-  width: 12.5%;
+  height: ${p => 100 / p.boardSize}%;
+  width: ${p => 100 / p.boardSize}%; /*12.5%;*/
   border: 8px solid;
   display: flex;
   justify-content: center;
