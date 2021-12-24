@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Board.scss';
+import { GameBoard } from './styles';
 import Tile from '../Tile/Tile';
 // import { Component } from 'react';
 import { resetBoard, getColor, moveChecker } from '../../utils/BoardFunctions';
@@ -54,9 +54,7 @@ function Board({updateScore, game, score}) {
 
     // if focus tile already exists, move checker from focus tile to this coord
     else {
-      const {isValidMove, newTiles} = moveChecker(tiles, focusTile, coord, boardSize, updateScore);
-      console.log("isvalidmove, newtile", isValidMove, newTiles)
-      
+      const {isValidMove, newTiles} = moveChecker(tiles, focusTile, coord, boardSize, updateScore);     
       setFocusTile(null);
 
       // If the move was valid, determine if player just won or switch the turn
@@ -79,9 +77,7 @@ function Board({updateScore, game, score}) {
   }
 
   return (
-    <div className = "board" 
-         style = {{width: `${boardSize * 88}px`, height: `${boardSize * 88}px`}}
-    >
+    <GameBoard boardSize={boardSize}>
       {tiles.map((tile, i) => {
         return <Tile 
                 key={i}
@@ -93,7 +89,7 @@ function Board({updateScore, game, score}) {
                 tileClicked = {tileClicked}
                /> 
       })}
-    </div>
+    </GameBoard>
   );
 }
 
