@@ -20,7 +20,7 @@ function Tile({color, coord, isFocusTile, hasChecker, tileClicked, isKing, board
     >
       <p className="label">{`${coord[0]}, ${coord[1]}`}</p> 
       {(hasChecker & isKing) ? <img className="crown" src={crown} /> : ''}
-      {hasChecker ? <CheckerPiece src={hasChecker == 1 ? chromeLogo : ieLogo} /> : ''}
+      {hasChecker ? <CheckerPiece src={hasChecker == 1 ? ieLogo : chromeLogo} /> : ''}
     </TileContainer>
   );
 }

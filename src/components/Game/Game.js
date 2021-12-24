@@ -3,12 +3,12 @@ import './Game.scss';
 import Board from '../Board/Board';
 import ieLogo from '../../assets/ieLogo.png';
 import chromeLogo from '../../assets/chromeLogo.png';
-import { GameContainer, Score } from './styles';
+import { GameContainer } from './styles';
+import Score from '../Score/Score';
 
 function Game(props) {
 
-  const [score1, setScore1] = useState(0);
-  const [score2, setScore2] = useState(0);
+  const [score, setScore] = useState([0,0]);
   // change score to 1 state of [#, #]
   const [gameState, setGameState] = useState('p1Turn'); // gameState is either p1Turn, p2Turn, p1Won, p2Won
   const [sameScreen, setSameScreen] = useState(false); // are players playing on same screen?
@@ -24,8 +24,7 @@ function Game(props) {
   const game = {gameState, setGameState};
 
   const updateScore = (newScore) => {
-    setScore1(score1 + newScore[0]);
-    setScore2(score2 + newScore[1]);
+    setScore([score[0] + newScore[0], score[1] + newScore[1]]);
   }
 
   return (
@@ -33,26 +32,17 @@ function Game(props) {
         <Board 
           updateScore={updateScore} 
           game={game} 
-          score={[score1, score2]}
+          score={score}
           sameScreen={sameScreen}
           playerView={playerView}/>
-        <Score>
-          <div className="player">
-            <img className="logo" src={chromeLogo} alt="Player 1 logo"></img>
-            <div>
-              <h2 className="name">{`Player 1: ${score1}`}</h2>
-              {!sameScreen ? <h3 className="name-label">{`${playerView === 1 ? '(You)' : '(Opponent)'}`}</h3> : ''}
-            </div>
-          </div>
-          <div className="player">
-            <img className="logo" src={ieLogo} alt="Player 2 logo"></img>
-            <div>
-              <h2 className="name">{`Player 2: ${score2}`}</h2>
-              {!sameScreen ? <h3 className="name-label">{`${playerView === -1 ? '(You)' : '(Opponent)'}`}</h3> : ''}
-            </div>
-          </div>
+        <div>
+          <Score 
+            score={score}
+            sameScreen={sameScreen}
+            playerView={playerView}>
+          </Score>
           <p>{gameStateMsg[gameState]}</p>
-        </Score>
+        </div>
       </GameContainer>
   );
 }
