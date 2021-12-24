@@ -11,7 +11,7 @@ function Game(props) {
   const [score2, setScore2] = useState(0);
   // change score to 1 state of [#, #]
   const [gameState, setGameState] = useState('p1Turn'); // gameState is either p1Turn, p2Turn, p1Won, p2Won
-  const [sameScreen, setSameScreen] = useState(true); // are players playing on same screen?
+  const [sameScreen, setSameScreen] = useState(false); // are players playing on same screen?
   const [playerView, setPlayerView] = useState(-1); // which player's view should screen display if they're playing on different screens?
 
   const gameStateMsg = {
@@ -28,10 +28,6 @@ function Game(props) {
     setScore2(score2 + newScore[1]);
   }
 
-  useEffect(() => {
-
-  }, []);
-
   return (
     <GameContainer className="game">
         <Board 
@@ -43,14 +39,18 @@ function Game(props) {
         <Score>
           <div className="player">
             <img className="logo" src={chromeLogo} alt="Player 1 logo"></img>
-            <h2 className="name">{`Player 1: ${score1}`}</h2>
-            
+            <div>
+              <h2 className="name">{`Player 1: ${score1}`}</h2>
+              {!sameScreen ? <h3 className="name-label">{`${playerView === 1 ? '(You)' : '(Opponent)'}`}</h3> : ''}
+            </div>
           </div>
           <div className="player">
             <img className="logo" src={ieLogo} alt="Player 2 logo"></img>
-            <h2 className="name">{`Player 2: ${score2}`}</h2>
+            <div>
+              <h2 className="name">{`Player 2: ${score2}`}</h2>
+              {!sameScreen ? <h3 className="name-label">{`${playerView === -1 ? '(You)' : '(Opponent)'}`}</h3> : ''}
+            </div>
           </div>
-
           <p>{gameStateMsg[gameState]}</p>
         </Score>
       </GameContainer>

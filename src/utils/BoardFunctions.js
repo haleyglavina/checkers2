@@ -21,10 +21,10 @@ export const resetBoard = (boardSize) => {
     for (let j = 0; j < boardSize; j++) {
       // [x, y, hasChecker, king]
       if (i <= (boardSize / 3) && !getColor([i, j]))
-        tile.push({i, j, hasChecker: 1, king: false});
+        tile.push({i, j, hasChecker: -1, king: false});
       
       else if (i >= (boardSize - (boardSize / 3) - 1) && !getColor([i, j])) 
-        tile.push({i, j, hasChecker: -1, king: false});
+        tile.push({i, j, hasChecker: 1, king: false});
       
       else 
         tile.push({i, j, hasChecker: null, king: false});
