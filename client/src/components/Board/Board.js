@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { GameBoard } from './styles';
 import Tile from '../Tile/Tile';
 // import { Component } from 'react';
-import { resetBoard, getColor, moveChecker } from '../../utils/BoardFunctions';
+import { resetBoard, getColor, moveChecker, checkForWin } from '../../utils/BoardFunctions';
+import { emptyBoard, pawnCantMove, kingCantMove } from '../../utils/BoardTestSetup';
 
 // Number of tiles per row/column
 let boardSize = 8;
@@ -15,7 +16,10 @@ function Board({updateScore, game, score, sameScreen, playerView}) {
   // const [boardWidth, setBoardWidth] = useState(0);
 
   useEffect(() => {
-    setTiles(resetBoard(boardSize));
+    // setTiles(resetBoard(boardSize));
+    // setTiles(emptyBoard(boardSize));
+    // setTiles(pawnCantMove());
+    setTiles(kingCantMove());
   }, [])
 
   // Check if a tile is currently focused
@@ -47,13 +51,14 @@ function Board({updateScore, game, score, sameScreen, playerView}) {
 
     // if focus tile already exists, move checker from focus tile to this coord
     else {
-      const {isValidMove, newTiles} = moveChecker(tiles, focusTile, coord, boardSize, updateScore);     
+      let {isValidMove, newTiles} = moveChecker(tiles, focusTile, coord, boardSize, updateScore);     
       setFocusTile(null);
 
       // If the move was valid, determine if player just won or switch the turn
       if (isValidMove) {
         setTiles(newTiles);
         let newGameState = game.gameState;
+
         if (game.gameState === 'p1Turn') {
           if (score[0] >= maxPoints)
             newGameState = 'p1Won';
@@ -63,6 +68,15 @@ function Board({updateScore, game, score, sameScreen, playerView}) {
             newGameState = 'p2Won';
           newGameState = 'p1Turn';
         }
+
+        // Check if current player cannot make any move. If so, current player has lost
+        if ((game.gameState === 'p1Turn') || (game.gameState === 'p2Turn')) {
+          let winResult = checkForWin(newTiles, game.gameState === 'p1Turn' ? 1 : -1, boardSize);
+          console.log("winResult received:", winResult);
+          if (winResult[0])
+            newGameState = winResult[1] === 1 ? 'p1Won' : 'p2Won';
+        }
+
         console.log("changing game state to:", newGameState);
         game.setGameState(newGameState);
       }

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import './Game.scss';
 import Board from '../Board/Board';
-import ieLogo from '../../assets/ieLogo.png';
-import chromeLogo from '../../assets/chromeLogo.png';
 import { GameContainer } from './styles';
 import Score from '../Score/Score';
 
 function Game({ sameScreen }) {
 
   const [score, setScore] = useState([0,0]);
-  const [gameState, setGameState] = useState('p1Turn'); // gameState is either p1Turn, p2Turn, p1Won, p2Won
+  const [gameState, setGameState] = useState('p2Turn'); // gameState is either p1Turn, p2Turn, p1Won, p2Won
   
-  const [playerView, setPlayerView] = useState(-1); // which player's view should screen display if they're playing on different screens?
+  const [playerView, setPlayerView] = useState(1); // which player's view should screen display if they're playing on different screens?
 
   const gameStateMsg = {
     'p1Turn': "It's player 1's turn",
