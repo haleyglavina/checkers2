@@ -91,14 +91,14 @@ const isBigMoveValid = (tiles, oldCoord, newCoord, boardSize) => {
   let capturesOpponent = false;
 
   if (oldTile.king) {
-    console.log("check move logic for a king")
+    // console.log("check move logic for a king")
     iChangeValid = ((newCoord[0] === (oldCoord[0] + 2)) || (newCoord[0] === (oldCoord[0] - 2)));
     opponentCoord = [ oldCoord[0] + iDirection, oldCoord[1] + jDirection ];
     iChangeValid = ((newCoord[0] === (oldCoord[0] + 2)) || (newCoord[0] === (oldCoord[0] - 2)));
     let opponentTile = tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]];
     capturesOpponent = (opponentTile.hasChecker === (-1 * oldTile.hasChecker));
   } else {
-    console.log("check move logic for a pawn")
+    // console.log("check move logic for a pawn")
     opponentCoord = [oldCoord[0] + fwdDirection, oldCoord[1] + jDirection];
     capturesOpponent = (fwdDirection === 1 
       ? (tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]].hasChecker === -1) 
@@ -135,15 +135,14 @@ const moveCapturesOpponent = (tiles, oldCoord, newCoord, boardSize, updateScore)
 
   // SINGLES
   // remove opponent
-  tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]] = {
-    i: opponentCoord[0], 
-    j: opponentCoord[1], 
-    hasChecker: null,
-    king: false
-  };
+  // tiles[(opponentCoord[0] * boardSize) + opponentCoord[1]] = {
+  //   i: opponentCoord[0], 
+  //   j: opponentCoord[1], 
+  //   hasChecker: null,
+  //   king: false
+  // };
 
-  // KINGS
-  // remove opponent
+  // Remove opponent from board
   let iDirection = newCoord[0] > oldCoord[0] ? 1 : -1;
   opponentCoord = [ oldCoord[0] + iDirection, oldCoord[1] + jDirection ];
   console.log("removing opponentCoord:", opponentCoord);
@@ -190,7 +189,7 @@ export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) =
     king: false
   };
 
-  console.log("returned tiles:", tiles);
+  // console.log("returned tiles:", tiles);
   return {isValidMove: true, newTiles: tiles};
 }
 
@@ -220,10 +219,10 @@ const isKing = (tiles, oldCoord, newCoord, boardSize) => {
 // Returns [if a player won, which player won]
 */
 export const checkForWin = (tiles, currPlayer, boardSize) => {
-  console.log("in check for win function");
+  // console.log("in check for win function");
 
   let nextPlayer = currPlayer * -1;
-  console.log("nextPlayer:", nextPlayer);
+  // console.log("nextPlayer:", nextPlayer);
 
   let winResult = [false, null];
   // loop thru tiles

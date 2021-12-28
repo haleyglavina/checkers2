@@ -12,7 +12,6 @@ function Board({updateScore, game, score, sameScreen, playerView}) {
 
   const [focusTile, setFocusTile] = useState(null);
   const [tiles, setTiles] = useState([]);
-  const maxPoints = 12; // Change this to a function of boardSize !
   // const [boardWidth, setBoardWidth] = useState(0);
 
   useEffect(() => {
@@ -59,23 +58,31 @@ function Board({updateScore, game, score, sameScreen, playerView}) {
         setTiles(newTiles);
         let newGameState = game.gameState;
 
-        if (game.gameState === 'p1Turn') {
-          if (score[0] >= maxPoints)
-            newGameState = 'p1Won';
-          newGameState = 'p2Turn';
-        } else {
-          if (score[1] >= maxPoints)
-            newGameState = 'p2Won';
-          newGameState = 'p1Turn';
+        let p1CheckersRemaining = newTiles.filter(tile => tile.hasChecker === 1).length;
+        let p2CheckersRemaining = newTiles.filter(tile => tile.hasChecker === -1).length;
+        console.log("p1 remaining:", p1CheckersRemaining);
+        console.log("p2 remaining:", p2CheckersRemaining);
+
+        // If the current player just eliminated the last of their opponent's checkers, current player wins
+        if (newGameState === 'p1Turn' & (p2CheckersRemaining === 0)) {
+          newGameState = 'p1Won';
+        } else if (newGameState === 'p2Turn' & (p1CheckersRemaining === 0)) {
+          newGameState = 'p2Won';
         }
 
-        // Check if current player cannot make any move. If so, current player has lost
-        if ((game.gameState === 'p1Turn') || (game.gameState === 'p2Turn')) {
-          let winResult = checkForWin(newTiles, game.gameState === 'p1Turn' ? 1 : -1, boardSize);
+        // If current player cannot make any moves they have lost
+        if ((newGameState === 'p1Turn') || (newGameState === 'p2Turn')) {
+          let winResult = checkForWin(newTiles, newGameState === 'p1Turn' ? 1 : -1, boardSize);
           console.log("winResult received:", winResult);
           if (winResult[0])
             newGameState = winResult[1] === 1 ? 'p1Won' : 'p2Won';
         }
+
+        // If no player has won yet, switch turns
+        if (newGameState === 'p1Turn')
+          newGameState = 'p2Turn';
+        else if (newGameState === 'p2Turn')
+          newGameState = 'p1Turn';
 
         console.log("changing game state to:", newGameState);
         game.setGameState(newGameState);
