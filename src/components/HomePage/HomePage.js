@@ -20,14 +20,15 @@ const MainContent = styled.main`
 function HomePage(props) {
 
   const [theme, setTheme] = useState("dark");
+  const [sameScreen, setSameScreen] = useState(false); // are players playing on same screen?
   const value = { theme, setTheme };
 
   return (
     <ThemeContext.Provider value={value}>
       <MainContent theme={theme}>
-        <NavBar />
+        <NavBar sameScreen={sameScreen} setSameScreen={setSameScreen} />
         <h1>Checkers</h1>
-        <Game />
+        <Game sameScreen={sameScreen} />
       </MainContent>
     </ThemeContext.Provider>
   );

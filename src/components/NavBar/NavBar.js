@@ -1,25 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ThemeContext from '../../utils/ThemeContext';
+import Toggle from '../Toggle/Toggle';
 import { Nav } from './styles';
 
-function NavBar(props) {
+function NavBar({ sameScreen, setSameScreen }) {
 
   const { theme, setTheme } = useContext(ThemeContext);
-  const [toggleOn, setToggleOn] = useState(theme === 'dark');
 
-  const switchToggle = () => { 
-    setToggleOn(!toggleOn);
+  // for switching light/dark theme
+  const switchTheme = () => { 
     setTheme( (theme == 'light') ? 'dark' : 'light');
+  }
+
+  // for switching screens together/separate mode
+  const switchScreenMode = () => { 
+    setSameScreen(!sameScreen);
   }
 
   return (
     <Nav className="navbar">
       <p className="title">Battle of da Browsers 🔥</p>
-      <div className={`toggle ${toggleOn ? 'toggle--on' : ''}`} onClick={switchToggle}>
-        <p className="toggle__symbol toggle__symbol--dark">🌜</p>
-        <p className="toggle__symbol toggle__symbol--light">🌞</p>
-        <div className={`toggle__dial ${toggleOn ? 'toggle__dial--on' : ''}`}></div>
-      </div>
+      <Toggle toggleAction={switchTheme} initialState={theme === 'dark'} />
+      <Toggle toggleAction={switchScreenMode} initialState={false} />
     </Nav>
   );
 }

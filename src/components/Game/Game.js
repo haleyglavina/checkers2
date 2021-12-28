@@ -6,12 +6,11 @@ import chromeLogo from '../../assets/chromeLogo.png';
 import { GameContainer } from './styles';
 import Score from '../Score/Score';
 
-function Game(props) {
+function Game({ sameScreen }) {
 
   const [score, setScore] = useState([0,0]);
-  // change score to 1 state of [#, #]
   const [gameState, setGameState] = useState('p1Turn'); // gameState is either p1Turn, p2Turn, p1Won, p2Won
-  const [sameScreen, setSameScreen] = useState(false); // are players playing on same screen?
+  
   const [playerView, setPlayerView] = useState(-1); // which player's view should screen display if they're playing on different screens?
 
   const gameStateMsg = {
