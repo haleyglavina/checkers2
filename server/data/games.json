@@ -1,0 +1,14 @@
+[
+  {
+    "gameID": "test",
+    "names": {
+      "p1": "Playa 1",
+      "p2": "Playa 2"
+    },
+    "scores": {
+      "p1": 0,
+      "p2": 0
+    },
+    "board": []
+  }
+]

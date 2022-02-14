@@ -4,6 +4,7 @@ import Tile from '../Tile/Tile';
 // import { Component } from 'react';
 import { resetBoard, getColor, moveChecker, checkForWin } from '../../utils/BoardFunctions';
 import { emptyBoard, pawnCantMove, kingCantMove } from '../../utils/BoardTestSetup';
+import axios from "axios";
 
 // Number of tiles per row/column
 let boardSize = 8;
@@ -50,7 +51,15 @@ function Board({updateScore, game, score, sameScreen, playerView}) {
 
     // if focus tile already exists, move checker from focus tile to this coord
     else {
-      let {isValidMove, newTiles} = moveChecker(tiles, focusTile, coord, boardSize, updateScore);     
+      let {isValidMove, newTiles} = moveChecker(tiles, focusTile, coord, boardSize, updateScore);
+      // if (isValidMove) {
+      //   axios
+      //     .get('http://localhost:8080/warehouses/')
+      //     .then(res => {
+
+      //     })
+      // }
+
       setFocusTile(null);
 
       // If the move was valid, determine if player just won or switch the turn
