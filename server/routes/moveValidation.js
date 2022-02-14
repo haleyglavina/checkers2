@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const boardFunctions = require('../utils/BoardFunctions');
 
 // test endpoint
 router.get('/test', (req, res) => {

@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {v4: uuid} = require('uuid');
-const gameData = require('../data/games.json');
+let gameData = require('../data/games.json');
 const boardSetup = require('../utils/BoardTestSetup');
-// import { emptyBoard } from '../utils/BoardTestSetup';
 
 // test endpoint
 router.get('/test', (req, res) => {
@@ -18,7 +17,7 @@ router.get('/test', (req, res) => {
 router.get('/newGame', (req, res) => {
 
   let newGame = {
-    gameId: uuid(),
+    id: uuid(),
     names: {
       p1: "Playa 1",
       p2: "Playa 2"
@@ -39,12 +38,23 @@ router.get('/newGame', (req, res) => {
 });
 
 // Finish a game and remove game ID and board
-router.post('/endGame/:id', (req, res) => {
+router.delete('/endGame/:id', (req, res) => {
+  let index = gameData.findIndex(game => game.id === req.params.id)
 
+  // handle a good request
+  if (index >= 0) {
+    gameData.splice(index, 1);
+    return res.status(200).json({
+      success: true,
+      message: "Game test endpoint successfully reached"
+    });
+  }
+
+  // handle bad request
   return res.status(400).json({
-    success: true,
-    message: "Game test endpoint successfully reached"
-  })
+    success: false,
+    message: "Could not find game to delete"
+  });
 });
 
 module.exports = router; 

@@ -1,11 +1,11 @@
-export const tileIndex = (i, j, boardSize) => {
+const tileIndex = (i, j, boardSize) => {
   return (i * boardSize) + j;
 }
 
 /*
 // Define tiles with start of game checkers arrangement
 */
-export const resetBoard = (boardSize) => {
+const resetBoard = (boardSize) => {
   let tile = []
   for (let i = 0; i < boardSize; i++) {
     for (let j = 0; j < boardSize; j++) {
@@ -26,7 +26,7 @@ export const resetBoard = (boardSize) => {
 /*
 // Determines what color a tile will be
 */
-export const getColor = (coord) => {
+const getColor = (coord) => {
   let i = coord[0]
   let j = coord[1]
 
@@ -163,7 +163,7 @@ const moveCapturesOpponent = (tiles, oldCoord, newCoord, boardSize, updateScore)
 /*
 // Moves a checker from oldCoord to newCoord, returns updated tiles array
 */
-export const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) => {
+const moveChecker = (tiles, oldCoord, newCoord, boardSize, updateScore) => {
 
   if (isMoveValid(tiles, oldCoord, newCoord, boardSize)) {
     console.log("valid small move");
@@ -218,7 +218,7 @@ const isKing = (tiles, oldCoord, newCoord, boardSize) => {
 // Check if current player cannot make any move. If so, current player has lost
 // Returns [if a player won, which player won]
 */
-export const checkForWin = (tiles, currPlayer, boardSize) => {
+const checkForWin = (tiles, currPlayer, boardSize) => {
   // console.log("in check for win function");
 
   let nextPlayer = currPlayer * -1;
@@ -268,3 +268,15 @@ export const checkForWin = (tiles, currPlayer, boardSize) => {
 
   return winResult;
 }
+
+module.exports = {
+  tileIndex,
+  resetBoard,
+  getColor,
+  // isMoveValid,
+  // isBigMoveValid,
+  // moveCapturesOpponent,
+  moveChecker,
+  // isKing,
+  checkForWin
+};
